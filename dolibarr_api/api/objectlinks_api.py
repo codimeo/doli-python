@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-    Restler API Explorer
+    Restler API Explore
 
     Live API Documentation
 
@@ -12,18 +12,15 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-import warnings
-from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
-from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr, field_validator
-from typing import Any, Dict, List, Optional
+from pydantic import (Field, StrictFloat, StrictInt, StrictStr,
+                      validate_call)
 from typing_extensions import Annotated
-from dolibarr_api.models.anyectlinks_create_model import AnyectlinksCreateModel
 
 from dolibarr_api.api_client import ApiClient, RequestSerialized
 from dolibarr_api.api_response import ApiResponse
+from dolibarr_api.models.objectlinks_create_model import ObjectlinksCreateModel
 from dolibarr_api.rest import RESTResponseType
 
 
@@ -39,11 +36,11 @@ class ObjectlinksApi:
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-
     @validate_call
     def objectlinks_create(
         self,
-        objectlinks_create_model: Annotated[Optional[AnyectlinksCreateModel], Field(description="request_data   ")] = None,
+        objectlinks_create_model: Annotated[Optional[ObjectlinksCreateModel], Field(
+            description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -62,7 +59,7 @@ class ObjectlinksApi:
         Examples: Only set \"notrigger\": 1 because 0 is the default value. Linking subscriptions for when you sell membership as part of another sale {\"fk_source\":\"1679\",\"sourcetype\":\"propal\",\"fk_target\":\"1233\",\"targettype\":\"commande\"} {\"fk_source\":\"167\",\"sourcetype\":\"facture\",\"fk_target\":\"123\",\"targettype\":\"subscription\"}
 
         :param objectlinks_create_model: request_data   
-        :type objectlinks_create_model: AnyectlinksCreateModel
+        :type objectlinks_create_model: ObjectlinksCreateModel
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -83,7 +80,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_create_serialize(
             objectlinks_create_model=objectlinks_create_model,
@@ -109,11 +106,11 @@ class ObjectlinksApi:
             response_types_map=_response_types_map,
         ).data
 
-
     @validate_call
     def objectlinks_create_with_http_info(
         self,
-        objectlinks_create_model: Annotated[Optional[AnyectlinksCreateModel], Field(description="request_data   ")] = None,
+        objectlinks_create_model: Annotated[Optional[ObjectlinksCreateModel], Field(
+            description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -132,7 +129,7 @@ class ObjectlinksApi:
         Examples: Only set \"notrigger\": 1 because 0 is the default value. Linking subscriptions for when you sell membership as part of another sale {\"fk_source\":\"1679\",\"sourcetype\":\"propal\",\"fk_target\":\"1233\",\"targettype\":\"commande\"} {\"fk_source\":\"167\",\"sourcetype\":\"facture\",\"fk_target\":\"123\",\"targettype\":\"subscription\"}
 
         :param objectlinks_create_model: request_data   
-        :type objectlinks_create_model: AnyectlinksCreateModel
+        :type objectlinks_create_model: ObjectlinksCreateModel
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -153,7 +150,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_create_serialize(
             objectlinks_create_model=objectlinks_create_model,
@@ -179,11 +176,11 @@ class ObjectlinksApi:
             response_types_map=_response_types_map,
         )
 
-
     @validate_call
     def objectlinks_create_without_preload_content(
         self,
-        objectlinks_create_model: Annotated[Optional[AnyectlinksCreateModel], Field(description="request_data   ")] = None,
+        objectlinks_create_model: Annotated[Optional[ObjectlinksCreateModel], Field(
+            description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -202,7 +199,7 @@ class ObjectlinksApi:
         Examples: Only set \"notrigger\": 1 because 0 is the default value. Linking subscriptions for when you sell membership as part of another sale {\"fk_source\":\"1679\",\"sourcetype\":\"propal\",\"fk_target\":\"1233\",\"targettype\":\"commande\"} {\"fk_source\":\"167\",\"sourcetype\":\"facture\",\"fk_target\":\"123\",\"targettype\":\"subscription\"}
 
         :param objectlinks_create_model: request_data   
-        :type objectlinks_create_model: AnyectlinksCreateModel
+        :type objectlinks_create_model: ObjectlinksCreateModel
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -223,7 +220,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_create_serialize(
             objectlinks_create_model=objectlinks_create_model,
@@ -244,7 +241,6 @@ class ObjectlinksApi:
             _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _objectlinks_create_serialize(
         self,
@@ -277,12 +273,11 @@ class ObjectlinksApi:
         if objectlinks_create_model is not None:
             _body_params = objectlinks_create_model
 
-
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
+                    'application/json',
                     'application/xml'
                 ]
             )
@@ -294,8 +289,8 @@ class ObjectlinksApi:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json', 
-                        'application/xml', 
+                        'application/json',
+                        'application/xml',
                         'multipart/form-data'
                     ]
                 )
@@ -322,9 +317,6 @@ class ObjectlinksApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-
-
 
     @validate_call
     def objectlinks_remove_by_id(
@@ -368,7 +360,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_remove_by_id_serialize(
             id=id,
@@ -393,7 +385,6 @@ class ObjectlinksApi:
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
-
 
     @validate_call
     def objectlinks_remove_by_id_with_http_info(
@@ -437,7 +428,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_remove_by_id_serialize(
             id=id,
@@ -462,7 +453,6 @@ class ObjectlinksApi:
             response_data=response_data,
             response_types_map=_response_types_map,
         )
-
 
     @validate_call
     def objectlinks_remove_by_id_without_preload_content(
@@ -506,7 +496,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_remove_by_id_serialize(
             id=id,
@@ -527,7 +517,6 @@ class ObjectlinksApi:
             _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _objectlinks_remove_by_id_serialize(
         self,
@@ -560,16 +549,14 @@ class ObjectlinksApi:
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
+                    'application/json',
                     'application/xml'
                 ]
             )
-
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -591,9 +578,6 @@ class ObjectlinksApi:
             _request_auth=_request_auth
         )
 
-
-
-
     @validate_call
     def objectlinks_remove_by_values(
         self,
@@ -601,8 +585,10 @@ class ObjectlinksApi:
         sourcetype: Annotated[StrictStr, Field(description="type of the source object")],
         fk_target: Annotated[StrictInt, Field(description="target id of object we link to")],
         targettype: Annotated[StrictStr, Field(description="type of the target object")],
-        relationtype: Annotated[Optional[StrictStr], Field(description="type of the relation, usually null")] = None,
-        notrigger: Annotated[Optional[StrictInt], Field(description="1=Does not execute triggers, 0=execute triggers")] = None,
+        relationtype: Annotated[Optional[StrictStr], Field(
+            description="type of the relation, usually null")] = None,
+        notrigger: Annotated[Optional[StrictInt], Field(
+            description="1=Does not execute triggers, 0=execute triggers")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -651,7 +637,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_remove_by_values_serialize(
             fk_source=fk_source,
@@ -682,7 +668,6 @@ class ObjectlinksApi:
             response_types_map=_response_types_map,
         ).data
 
-
     @validate_call
     def objectlinks_remove_by_values_with_http_info(
         self,
@@ -690,8 +675,10 @@ class ObjectlinksApi:
         sourcetype: Annotated[StrictStr, Field(description="type of the source object")],
         fk_target: Annotated[StrictInt, Field(description="target id of object we link to")],
         targettype: Annotated[StrictStr, Field(description="type of the target object")],
-        relationtype: Annotated[Optional[StrictStr], Field(description="type of the relation, usually null")] = None,
-        notrigger: Annotated[Optional[StrictInt], Field(description="1=Does not execute triggers, 0=execute triggers")] = None,
+        relationtype: Annotated[Optional[StrictStr], Field(
+            description="type of the relation, usually null")] = None,
+        notrigger: Annotated[Optional[StrictInt], Field(
+            description="1=Does not execute triggers, 0=execute triggers")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -740,7 +727,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_remove_by_values_serialize(
             fk_source=fk_source,
@@ -771,7 +758,6 @@ class ObjectlinksApi:
             response_types_map=_response_types_map,
         )
 
-
     @validate_call
     def objectlinks_remove_by_values_without_preload_content(
         self,
@@ -779,8 +765,10 @@ class ObjectlinksApi:
         sourcetype: Annotated[StrictStr, Field(description="type of the source object")],
         fk_target: Annotated[StrictInt, Field(description="target id of object we link to")],
         targettype: Annotated[StrictStr, Field(description="type of the target object")],
-        relationtype: Annotated[Optional[StrictStr], Field(description="type of the relation, usually null")] = None,
-        notrigger: Annotated[Optional[StrictInt], Field(description="1=Does not execute triggers, 0=execute triggers")] = None,
+        relationtype: Annotated[Optional[StrictStr], Field(
+            description="type of the relation, usually null")] = None,
+        notrigger: Annotated[Optional[StrictInt], Field(
+            description="1=Does not execute triggers, 0=execute triggers")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -829,7 +817,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_remove_by_values_serialize(
             fk_source=fk_source,
@@ -855,7 +843,6 @@ class ObjectlinksApi:
             _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _objectlinks_remove_by_values_serialize(
         self,
@@ -888,43 +875,41 @@ class ObjectlinksApi:
         # process the path parameters
         # process the query parameters
         if fk_source is not None:
-            
+
             _query_params.append(('fk_source', fk_source))
-            
+
         if sourcetype is not None:
-            
+
             _query_params.append(('sourcetype', sourcetype))
-            
+
         if fk_target is not None:
-            
+
             _query_params.append(('fk_target', fk_target))
-            
+
         if targettype is not None:
-            
+
             _query_params.append(('targettype', targettype))
-            
+
         if relationtype is not None:
-            
+
             _query_params.append(('relationtype', relationtype))
-            
+
         if notrigger is not None:
-            
+
             _query_params.append(('notrigger', notrigger))
-            
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
+                    'application/json',
                     'application/xml'
                 ]
             )
-
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -945,9 +930,6 @@ class ObjectlinksApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-
-
 
     @validate_call
     def objectlinks_retrieve_by_id(
@@ -992,7 +974,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_retrieve_by_id_serialize(
             id=id,
@@ -1016,7 +998,6 @@ class ObjectlinksApi:
             response_data=response_data,
             response_types_map=_response_types_map,
         ).data
-
 
     @validate_call
     def objectlinks_retrieve_by_id_with_http_info(
@@ -1061,7 +1042,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_retrieve_by_id_serialize(
             id=id,
@@ -1085,7 +1066,6 @@ class ObjectlinksApi:
             response_data=response_data,
             response_types_map=_response_types_map,
         )
-
 
     @validate_call
     def objectlinks_retrieve_by_id_without_preload_content(
@@ -1130,7 +1110,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_retrieve_by_id_serialize(
             id=id,
@@ -1150,7 +1130,6 @@ class ObjectlinksApi:
             _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _objectlinks_retrieve_by_id_serialize(
         self,
@@ -1183,16 +1162,14 @@ class ObjectlinksApi:
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
+                    'application/json',
                     'application/xml'
                 ]
             )
-
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1214,9 +1191,6 @@ class ObjectlinksApi:
             _request_auth=_request_auth
         )
 
-
-
-
     @validate_call
     def objectlinks_retrieve_by_values(
         self,
@@ -1224,7 +1198,8 @@ class ObjectlinksApi:
         sourcetype: Annotated[StrictStr, Field(description="type of the source object")],
         fk_target: Annotated[StrictInt, Field(description="target id of object we link to")],
         targettype: Annotated[StrictStr, Field(description="type of the target object")],
-        relationtype: Annotated[Optional[StrictStr], Field(description="type of the relation, usually null")] = None,
+        relationtype: Annotated[Optional[StrictStr], Field(
+            description="type of the relation, usually null")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1271,7 +1246,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_retrieve_by_values_serialize(
             fk_source=fk_source,
@@ -1301,7 +1276,6 @@ class ObjectlinksApi:
             response_types_map=_response_types_map,
         ).data
 
-
     @validate_call
     def objectlinks_retrieve_by_values_with_http_info(
         self,
@@ -1309,7 +1283,8 @@ class ObjectlinksApi:
         sourcetype: Annotated[StrictStr, Field(description="type of the source object")],
         fk_target: Annotated[StrictInt, Field(description="target id of object we link to")],
         targettype: Annotated[StrictStr, Field(description="type of the target object")],
-        relationtype: Annotated[Optional[StrictStr], Field(description="type of the relation, usually null")] = None,
+        relationtype: Annotated[Optional[StrictStr], Field(
+            description="type of the relation, usually null")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1356,7 +1331,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_retrieve_by_values_serialize(
             fk_source=fk_source,
@@ -1386,7 +1361,6 @@ class ObjectlinksApi:
             response_types_map=_response_types_map,
         )
 
-
     @validate_call
     def objectlinks_retrieve_by_values_without_preload_content(
         self,
@@ -1394,7 +1368,8 @@ class ObjectlinksApi:
         sourcetype: Annotated[StrictStr, Field(description="type of the source object")],
         fk_target: Annotated[StrictInt, Field(description="target id of object we link to")],
         targettype: Annotated[StrictStr, Field(description="type of the target object")],
-        relationtype: Annotated[Optional[StrictStr], Field(description="type of the relation, usually null")] = None,
+        relationtype: Annotated[Optional[StrictStr], Field(
+            description="type of the relation, usually null")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1441,7 +1416,7 @@ class ObjectlinksApi:
                             in the spec for a single request.
         :type _host_index: int, optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
         _param = self._objectlinks_retrieve_by_values_serialize(
             fk_source=fk_source,
@@ -1466,7 +1441,6 @@ class ObjectlinksApi:
             _request_timeout=_request_timeout
         )
         return response_data.response
-
 
     def _objectlinks_retrieve_by_values_serialize(
         self,
@@ -1498,39 +1472,37 @@ class ObjectlinksApi:
         # process the path parameters
         # process the query parameters
         if fk_source is not None:
-            
+
             _query_params.append(('fk_source', fk_source))
-            
+
         if sourcetype is not None:
-            
+
             _query_params.append(('sourcetype', sourcetype))
-            
+
         if fk_target is not None:
-            
+
             _query_params.append(('fk_target', fk_target))
-            
+
         if targettype is not None:
-            
+
             _query_params.append(('targettype', targettype))
-            
+
         if relationtype is not None:
-            
+
             _query_params.append(('relationtype', relationtype))
-            
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
-
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
+                    'application/json',
                     'application/xml'
                 ]
             )
-
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1551,5 +1523,3 @@ class ObjectlinksApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

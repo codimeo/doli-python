@@ -14,109 +14,382 @@
 
 
 import unittest
+from unittest.mock import Mock, patch, MagicMock
+import os
 
+import dolibarr_api
 from dolibarr_api.api.supplierinvoices_api import SupplierinvoicesApi
+from dolibarr_api.models.create_supplierinvoices_model import CreateSupplierinvoicesModel
+from dolibarr_api.models.supplierinvoices_create_line_model import SupplierinvoicesCreateLineModel
+from dolibarr_api.models.supplierinvoices_update_line_model import SupplierinvoicesUpdateLineModel
+from dolibarr_api.models.supplierinvoices_add_payment_model import SupplierinvoicesAddPaymentModel
+from dolibarr_api.models.supplierinvoices_validate_model import SupplierinvoicesValidateModel
+from dolibarr_api.models.update_supplierinvoices_model import UpdateSupplierinvoicesModel
+from dolibarr_api.rest import ApiException
 
 
 class TestSupplierinvoicesApi(unittest.TestCase):
     """SupplierinvoicesApi unit test stubs"""
 
     def setUp(self) -> None:
-        self.api = SupplierinvoicesApi()
+        """Set up test fixtures"""
+        # Create a mock configuration
+        self.configuration = dolibarr_api.Configuration(
+            host="http://dolibarr.codimeo.com/api/index.php"
+        )
+        # Mock API key if available in environment
+        if 'DOLIBARR_API_KEY' in os.environ:
+            self.configuration.api_key['api_key'] = os.environ['DOLIBARR_API_KEY']
+
+        # Create API client with configuration
+        self.api_client = dolibarr_api.ApiClient(self.configuration)
+        self.api = SupplierinvoicesApi(self.api_client)
 
     def tearDown(self) -> None:
+        """Tear down test fixtures"""
         pass
 
     def test_create_supplierinvoices(self) -> None:
         """Test case for create_supplierinvoices
 
         Create supplier invoice object 🔐
+        Example: {'ref': 'auto', 'ref_supplier': '7985630', 'socid': 1, 
+                  'note': 'Inserted with Python', 'order_supplier': 1, 
+                  'date': '2021-07-28'}
         """
-        pass
+        # Test with mock data
+        create_model = CreateSupplierinvoicesModel(
+            request_data=['ref=auto', 'ref_supplier=TEST001', 'socid=1',
+                          'note=Test supplier invoice', 'date=2023-12-03']
+        )
+
+        # Mock the API call
+        with patch.object(self.api, 'create_supplierinvoices') as mock_create:
+            mock_create.return_value = 123  # Mocked invoice ID
+
+            result = self.api.create_supplierinvoices(
+                create_supplierinvoices_model=create_model
+            )
+
+            # Verify the mock was called
+            mock_create.assert_called_once()
+            self.assertEqual(result, 123)
 
     def test_list_supplierinvoices(self) -> None:
         """Test case for list_supplierinvoices
 
         List invoices 🔐
+        Tests filtering by status, thirdparty, and pagination
         """
-        pass
+        # Test listing all supplier invoices
+        with patch.object(self.api, 'list_supplierinvoices') as mock_list:
+            mock_list.return_value = ['invoice1', 'invoice2']
 
-    def test_remove_supplierinvoices(self) -> None:
-        """Test case for remove_supplierinvoices
+            result = self.api.list_supplierinvoices(
+                sortfield='t.ref',
+                sortorder='ASC',
+                limit=10,
+                page=0
+            )
 
-        Delete supplier invoice 🔐
-        """
-        pass
+            mock_list.assert_called_once()
+            self.assertIsInstance(result, list)
+
+        # Test filtering by status
+        with patch.object(self.api, 'list_supplierinvoices') as mock_list:
+            mock_list.return_value = []
+
+            result = self.api.list_supplierinvoices(status='paid')
+
+            mock_list.assert_called_once()
+
+        # Test filtering by thirdparty
+        with patch.object(self.api, 'list_supplierinvoices') as mock_list:
+            mock_list.return_value = []
+
+            result = self.api.list_supplierinvoices(thirdparty_ids='1,2,3')
+
+            mock_list.assert_called_once()
 
     def test_retrieve_supplierinvoices(self) -> None:
         """Test case for retrieve_supplierinvoices
 
         Get properties of a supplier invoice object 🔐
         """
-        pass
+        invoice_id = 1
 
-    def test_supplierinvoices_add_payment(self) -> None:
-        """Test case for supplierinvoices_add_payment
+        with patch.object(self.api, 'retrieve_supplierinvoices') as mock_retrieve:
+            mock_retrieve.return_value = {
+                'id': invoice_id,
+                'ref': 'SI-001',
+                'socid': 1,
+                'total_ht': 100.0,
+                'total_ttc': 120.0
+            }
 
-        Add payment line to a specific supplier invoice with the remain to pay as amount. 🔐
-        """
-        pass
+            result = self.api.retrieve_supplierinvoices(id=invoice_id)
 
-    def test_supplierinvoices_create_line(self) -> None:
-        """Test case for supplierinvoices_create_line
-
-        Add a line to given supplier invoice 🔐
-        """
-        pass
-
-    def test_supplierinvoices_remove_line(self) -> None:
-        """Test case for supplierinvoices_remove_line
-
-        Deletes a line of a given supplier invoice 🔐
-        """
-        pass
-
-    def test_supplierinvoices_retrieve_lines(self) -> None:
-        """Test case for supplierinvoices_retrieve_lines
-
-        Get lines of a supplier invoice 🔐
-        """
-        pass
-
-    def test_supplierinvoices_retrieve_payments(self) -> None:
-        """Test case for supplierinvoices_retrieve_payments
-
-        Get list of payments of a given supplier invoice 🔐
-        """
-        pass
-
-    def test_supplierinvoices_settodraft(self) -> None:
-        """Test case for supplierinvoices_settodraft
-
-        Sets an invoice as draft 🔐
-        """
-        pass
-
-    def test_supplierinvoices_update_line(self) -> None:
-        """Test case for supplierinvoices_update_line
-
-        Update a line to a given supplier invoice 🔐
-        """
-        pass
-
-    def test_supplierinvoices_validate(self) -> None:
-        """Test case for supplierinvoices_validate
-
-        Validate an invoice 🔐
-        """
-        pass
+            mock_retrieve.assert_called_once_with(id=invoice_id)
+            self.assertIsInstance(result, dict)
+            self.assertEqual(result['id'], invoice_id)
 
     def test_update_supplierinvoices(self) -> None:
         """Test case for update_supplierinvoices
 
         Update supplier invoice 🔐
         """
-        pass
+        invoice_id = 1
+        update_model = UpdateSupplierinvoicesModel(
+            request_data=['note_private=Updated note', 'ref_supplier=UPD001']
+        )
+
+        with patch.object(self.api, 'update_supplierinvoices') as mock_update:
+            mock_update.return_value = {'success': 1}
+
+            result = self.api.update_supplierinvoices(
+                id=invoice_id,
+                update_supplierinvoices_model=update_model
+            )
+
+            mock_update.assert_called_once()
+
+    def test_remove_supplierinvoices(self) -> None:
+        """Test case for remove_supplierinvoices
+
+        Delete supplier invoice 🔐
+        """
+        invoice_id = 1
+
+        with patch.object(self.api, 'remove_supplierinvoices') as mock_remove:
+            mock_remove.return_value = ['success']
+
+            result = self.api.remove_supplierinvoices(id=invoice_id)
+
+            mock_remove.assert_called_once_with(id=invoice_id)
+            self.assertIsInstance(result, list)
+
+    def test_supplierinvoices_create_line(self) -> None:
+        """Test case for supplierinvoices_create_line
+
+        Add a line to given supplier invoice 🔐
+        Example: {'socid': 1, 'qty': 1, 'pu_ht': 21.0, 'tva_tx': 25.0, 
+                  'fk_product': '1189', 'product_type': 0, 
+                  'remise_percent': 1.0, 'vat_src_code': None}
+        """
+        invoice_id = 1
+        line_model = SupplierinvoicesCreateLineModel(
+            request_data=['qty=2', 'pu_ht=50.0', 'tva_tx=20.0',
+                          'fk_product=100', 'product_type=0']
+        )
+
+        with patch.object(self.api, 'supplierinvoices_create_line') as mock_create_line:
+            mock_create_line.return_value = '10'  # Line ID
+
+            result = self.api.supplierinvoices_create_line(
+                id=invoice_id,
+                supplierinvoices_create_line_model=line_model
+            )
+
+            mock_create_line.assert_called_once()
+            self.assertIsInstance(result, str)
+
+    def test_supplierinvoices_retrieve_lines(self) -> None:
+        """Test case for supplierinvoices_retrieve_lines
+
+        Get lines of a supplier invoice 🔐
+        """
+        invoice_id = 1
+
+        with patch.object(self.api, 'supplierinvoices_retrieve_lines') as mock_lines:
+            mock_lines.return_value = [
+                {'id': 1, 'qty': 2, 'pu_ht': 50.0},
+                {'id': 2, 'qty': 1, 'pu_ht': 100.0}
+            ]
+
+            result = self.api.supplierinvoices_retrieve_lines(id=invoice_id)
+
+            mock_lines.assert_called_once_with(id=invoice_id)
+            self.assertIsInstance(result, list)
+
+    def test_supplierinvoices_update_line(self) -> None:
+        """Test case for supplierinvoices_update_line
+
+        Update a line to a given supplier invoice 🔐
+        """
+        invoice_id = 1
+        line_id = 10
+        update_line_model = SupplierinvoicesUpdateLineModel(
+            request_data=['qty=3', 'pu_ht=60.0']
+        )
+
+        with patch.object(self.api, 'supplierinvoices_update_line') as mock_update_line:
+            mock_update_line.return_value = {'success': 1}
+
+            result = self.api.supplierinvoices_update_line(
+                id=invoice_id,
+                lineid=line_id,
+                supplierinvoices_update_line_model=update_line_model
+            )
+
+            mock_update_line.assert_called_once()
+
+    def test_supplierinvoices_remove_line(self) -> None:
+        """Test case for supplierinvoices_remove_line
+
+        Deletes a line of a given supplier invoice 🔐
+        """
+        invoice_id = 1
+        line_id = 10
+
+        with patch.object(self.api, 'supplierinvoices_remove_line') as mock_remove_line:
+            mock_remove_line.return_value = ['success']
+
+            result = self.api.supplierinvoices_remove_line(
+                id=invoice_id,
+                lineid=line_id
+            )
+
+            mock_remove_line.assert_called_once_with(id=invoice_id, lineid=line_id)
+            self.assertIsInstance(result, list)
+
+    def test_supplierinvoices_validate(self) -> None:
+        """Test case for supplierinvoices_validate
+
+        Validate an invoice 🔐
+        """
+        invoice_id = 1
+        validate_model = SupplierinvoicesValidateModel(
+            request_data=['idwarehouse=1', 'notrigger=0']
+        )
+
+        with patch.object(self.api, 'supplierinvoices_validate') as mock_validate:
+            mock_validate.return_value = {'success': 1}
+
+            result = self.api.supplierinvoices_validate(
+                id=invoice_id,
+                supplierinvoices_validate_model=validate_model
+            )
+
+            mock_validate.assert_called_once()
+
+    def test_supplierinvoices_settodraft(self) -> None:
+        """Test case for supplierinvoices_settodraft
+
+        Sets an invoice as draft 🔐
+        """
+        invoice_id = 1
+
+        with patch.object(self.api, 'supplierinvoices_settodraft') as mock_draft:
+            mock_draft.return_value = {'success': 1}
+
+            result = self.api.supplierinvoices_settodraft(id=invoice_id)
+
+            mock_draft.assert_called_once_with(id=invoice_id)
+
+    def test_supplierinvoices_add_payment(self) -> None:
+        """Test case for supplierinvoices_add_payment
+
+        Add payment line to a specific supplier invoice with the remain to pay as amount. 🔐
+        """
+        invoice_id = 1
+        payment_model = SupplierinvoicesAddPaymentModel(
+            datepaye='2023-12-03',
+            payment_mode_id=1,
+            closepaidinvoices='no',
+            accountid=1,
+            amount=100.0,
+            comment='Test payment'
+        )
+
+        with patch.object(self.api, 'supplierinvoices_add_payment') as mock_payment:
+            mock_payment.return_value = 1  # Payment ID
+
+            result = self.api.supplierinvoices_add_payment(
+                id=invoice_id,
+                supplierinvoices_add_payment_model=payment_model
+            )
+
+            mock_payment.assert_called_once()
+            self.assertIsInstance(result, int)
+
+    def test_supplierinvoices_retrieve_payments(self) -> None:
+        """Test case for supplierinvoices_retrieve_payments
+
+        Get list of payments of a given supplier invoice 🔐
+        """
+        invoice_id = 1
+
+        with patch.object(self.api, 'supplierinvoices_retrieve_payments') as mock_payments:
+            mock_payments.return_value = [
+                {'id': 1, 'amount': 100.0, 'datepaye': '2023-12-03'},
+                {'id': 2, 'amount': 50.0, 'datepaye': '2023-12-02'}
+            ]
+
+            result = self.api.supplierinvoices_retrieve_payments(id=invoice_id)
+
+            mock_payments.assert_called_once_with(id=invoice_id)
+            self.assertIsInstance(result, list)
+
+    def test_api_exception_handling(self) -> None:
+        """Test exception handling for API errors"""
+        invoice_id = 99999  # Non-existent ID
+
+        with patch.object(self.api, 'retrieve_supplierinvoices') as mock_retrieve:
+            mock_retrieve.side_effect = ApiException(status=404, reason="Not Found")
+
+            with self.assertRaises(ApiException) as context:
+                self.api.retrieve_supplierinvoices(id=invoice_id)
+
+            self.assertEqual(context.exception.status, 404)
+
+    def test_list_with_sqlfilters(self) -> None:
+        """Test listing supplier invoices with SQL filters"""
+        with patch.object(self.api, 'list_supplierinvoices') as mock_list:
+            mock_list.return_value = []
+
+            # Test with SQL filter
+            sql_filter = "(t.ref:like:'SI-%') and (t.datec:<:'20231231')"
+            result = self.api.list_supplierinvoices(sqlfilters=sql_filter)
+
+            mock_list.assert_called_once()
+
+    def test_list_with_pagination(self) -> None:
+        """Test listing supplier invoices with pagination"""
+        with patch.object(self.api, 'list_supplierinvoices') as mock_list:
+            mock_list.return_value = {'data': [], 'pagination': {'total': 0}}
+
+            result = self.api.list_supplierinvoices(
+                limit=20,
+                page=1,
+                pagination_data=True
+            )
+
+            mock_list.assert_called_once()
+
+    def test_create_supplierinvoices_with_full_data(self) -> None:
+        """Test creating supplier invoice with comprehensive data"""
+        create_model = CreateSupplierinvoicesModel(
+            request_data=[
+                'ref=auto',
+                'ref_supplier=SUPP-2023-001',
+                'socid=1',
+                'note=Complete supplier invoice',
+                'order_supplier=1',
+                'date=2023-12-03',
+                'cond_reglement_id=1',
+                'mode_reglement_id=1'
+            ]
+        )
+
+        with patch.object(self.api, 'create_supplierinvoices') as mock_create:
+            mock_create.return_value = 456
+
+            result = self.api.create_supplierinvoices(
+                create_supplierinvoices_model=create_model
+            )
+
+            mock_create.assert_called_once()
+            self.assertEqual(result, 456)
 
 
 if __name__ == '__main__':

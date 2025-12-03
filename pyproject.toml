@@ -37,6 +37,14 @@ mypy = ">= 1.5"
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[dependency-groups]
+dev = [
+    "autopep8>=2.3.2",
+    "pylint>=3.3.9",
+    "pyright>=1.1.407",
+    "setuptools>=80.9.0",
+]
+
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
 
