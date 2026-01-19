@@ -20,7 +20,6 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
-from dolibarr_api.models.create_invoices_model import CreateInvoicesModel
 from dolibarr_api.models.invoices_add_contact_model import InvoicesAddContactModel
 from dolibarr_api.models.invoices_add_payment_distributed_model import InvoicesAddPaymentDistributedModel
 from dolibarr_api.models.invoices_add_payment_model import InvoicesAddPaymentModel
@@ -53,7 +52,7 @@ class InvoicesApi:
     @validate_call
     def create_invoices(
         self,
-        create_invoices_model: Annotated[Optional[CreateInvoicesModel], Field(description="request_data   ")] = None,
+        create_invoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -71,7 +70,7 @@ class InvoicesApi:
 
 
         :param create_invoices_model: request_data   
-        :type create_invoices_model: CreateInvoicesModel
+        :type create_invoices_model: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -119,7 +118,7 @@ class InvoicesApi:
     @validate_call
     def create_invoices_with_http_info(
         self,
-        create_invoices_model: Annotated[Optional[CreateInvoicesModel], Field(description="request_data   ")] = None,
+        create_invoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -137,7 +136,7 @@ class InvoicesApi:
 
 
         :param create_invoices_model: request_data   
-        :type create_invoices_model: CreateInvoicesModel
+        :type create_invoices_model: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -185,7 +184,7 @@ class InvoicesApi:
     @validate_call
     def create_invoices_without_preload_content(
         self,
-        create_invoices_model: Annotated[Optional[CreateInvoicesModel], Field(description="request_data   ")] = None,
+        create_invoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -203,7 +202,7 @@ class InvoicesApi:
 
 
         :param create_invoices_model: request_data   
-        :type create_invoices_model: CreateInvoicesModel
+        :type create_invoices_model: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

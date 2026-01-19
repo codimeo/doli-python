@@ -46,7 +46,6 @@ Create invoice object 🔐
 
 ```python
 import dolibarr_api
-from dolibarr_api.models.create_invoices_model import CreateInvoicesModel
 from dolibarr_api.rest import ApiException
 from pprint import pprint
 
@@ -71,7 +70,7 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 with dolibarr_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dolibarr_api.InvoicesApi(api_client)
-    create_invoices_model = dolibarr_api.CreateInvoicesModel() # CreateInvoicesModel | request_data    (optional)
+    create_invoices_model = None # Dict[str, object] | request_data    (optional)
 
     try:
         # Create invoice object 🔐
@@ -89,7 +88,7 @@ with dolibarr_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_invoices_model** | [**CreateInvoicesModel**](CreateInvoicesModel.md)| request_data    | [optional] 
+ **create_invoices_model** | [**Dict[str, object]**](object.md)| request_data    | [optional] 
 
 ### Return type
 

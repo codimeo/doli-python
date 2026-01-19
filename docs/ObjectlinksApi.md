@@ -24,7 +24,7 @@ Examples: Only set "notrigger": 1 because 0 is the default value. Linking subscr
 
 ```python
 import dolibarr_api
-from dolibarr_api.models.anyectlinks_create_model import AnyectlinksCreateModel
+from dolibarr_api.models.objectlinks_create_model import ObjectlinksCreateModel
 from dolibarr_api.rest import ApiException
 from pprint import pprint
 
@@ -49,7 +49,7 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 with dolibarr_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dolibarr_api.ObjectlinksApi(api_client)
-    objectlinks_create_model = dolibarr_api.AnyectlinksCreateModel() # AnyectlinksCreateModel | request_data    (optional)
+    objectlinks_create_model = dolibarr_api.ObjectlinksCreateModel() # ObjectlinksCreateModel | request_data    (optional)
 
     try:
         # Create object link 🔐
@@ -67,7 +67,7 @@ with dolibarr_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **objectlinks_create_model** | **AnyectlinksCreateModel**| request_data    | [optional] 
+ **objectlinks_create_model** | [**ObjectlinksCreateModel**](ObjectlinksCreateModel.md)| request_data    | [optional] 
 
 ### Return type
 
