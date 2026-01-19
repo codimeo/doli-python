@@ -6879,17 +6879,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/createInvoicesModel"
+                "$ref": "#/components/schemas/Any"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/createInvoicesModel"
+                "$ref": "#/components/schemas/Any"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/createInvoicesModel"
+                "$ref": "#/components/schemas/Any"
               }
             }
           },
