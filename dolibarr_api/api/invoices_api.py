@@ -52,7 +52,7 @@ class InvoicesApi:
     @validate_call
     def create_invoices(
         self,
-        create_invoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
+        request_body: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -69,8 +69,8 @@ class InvoicesApi:
         """Create invoice object 🔐
 
 
-        :param create_invoices_model: request_data   
-        :type create_invoices_model: Dict[str, object]
+        :param request_body: request_data   
+        :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -94,7 +94,7 @@ class InvoicesApi:
         """ # noqa: E501
 
         _param = self._create_invoices_serialize(
-            create_invoices_model=create_invoices_model,
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -118,7 +118,7 @@ class InvoicesApi:
     @validate_call
     def create_invoices_with_http_info(
         self,
-        create_invoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
+        request_body: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -135,8 +135,8 @@ class InvoicesApi:
         """Create invoice object 🔐
 
 
-        :param create_invoices_model: request_data   
-        :type create_invoices_model: Dict[str, object]
+        :param request_body: request_data   
+        :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -160,7 +160,7 @@ class InvoicesApi:
         """ # noqa: E501
 
         _param = self._create_invoices_serialize(
-            create_invoices_model=create_invoices_model,
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -184,7 +184,7 @@ class InvoicesApi:
     @validate_call
     def create_invoices_without_preload_content(
         self,
-        create_invoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
+        request_body: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -201,8 +201,8 @@ class InvoicesApi:
         """Create invoice object 🔐
 
 
-        :param create_invoices_model: request_data   
-        :type create_invoices_model: Dict[str, object]
+        :param request_body: request_data   
+        :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -226,7 +226,7 @@ class InvoicesApi:
         """ # noqa: E501
 
         _param = self._create_invoices_serialize(
-            create_invoices_model=create_invoices_model,
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -245,7 +245,7 @@ class InvoicesApi:
 
     def _create_invoices_serialize(
         self,
-        create_invoices_model,
+        request_body,
         _request_auth,
         _content_type,
         _headers,
@@ -271,8 +271,8 @@ class InvoicesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if create_invoices_model is not None:
-            _body_params = create_invoices_model
+        if request_body is not None:
+            _body_params = request_body
 
 
         # set the HTTP header `Accept`

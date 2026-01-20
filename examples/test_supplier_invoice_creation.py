@@ -15,6 +15,7 @@ Requirements:
 """
 
 import os
+from random import randint
 import sys
 from pathlib import Path
 
@@ -54,11 +55,13 @@ def test_create_supplier_invoice():
     # Create API client and instance
     with dolibarr_api.ApiClient(configuration) as api_client:
         api_instance = SupplierinvoicesApi(api_client)
+        
+        random_ref = "TEST" + str(randint(1000, 9999))
 
         try:
             print("Attempting to create a supplier invoice...")
             print(
-                "Using test data: ref=auto, ref_supplier=TEST001, socid=1, note=Test supplier invoice, date=2023-12-03"
+                "Using test data: ref=auto, ref_supplier=" + random_ref + ", socid=397, note=Test supplier invoice, date=2023-12-03"
             )
             print()
 
@@ -66,8 +69,8 @@ def test_create_supplier_invoice():
             # Based on the doc example: {'ref': 'auto', 'ref_supplier': '7985630', 'socid': 1, 'note': 'Inserted with Python', 'order_supplier': 1, 'date': '2021-07-28'}
             invoice_data = {
                 "ref": "auto",
-                "ref_supplier": "TEST001",
-                "socid": "1",  # Try as string
+                "ref_supplier": random_ref, # Generate a unique ref and pad it with zeros
+                "socid": 397,
                 "note": "Test supplier invoice from API",
                 "date": "2023-12-03",
             }

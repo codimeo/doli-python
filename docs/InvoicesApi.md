@@ -36,7 +36,7 @@ Method | HTTP request | Description
 
 
 # **create_invoices**
-> int create_invoices(create_invoices_model=create_invoices_model)
+> int create_invoices(request_body=request_body)
 
 Create invoice object 🔐
 
@@ -70,11 +70,11 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 with dolibarr_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dolibarr_api.InvoicesApi(api_client)
-    create_invoices_model = None # Dict[str, object] | request_data    (optional)
+    request_body = None # Dict[str, object] | request_data    (optional)
 
     try:
         # Create invoice object 🔐
-        api_response = api_instance.create_invoices(create_invoices_model=create_invoices_model)
+        api_response = api_instance.create_invoices(request_body=request_body)
         print("The response of InvoicesApi->create_invoices:\n")
         pprint(api_response)
     except Exception as e:
@@ -88,7 +88,7 @@ with dolibarr_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_invoices_model** | [**Dict[str, object]**](object.md)| request_data    | [optional] 
+ **request_body** | [**Dict[str, object]**](object.md)| request_data    | [optional] 
 
 ### Return type
 

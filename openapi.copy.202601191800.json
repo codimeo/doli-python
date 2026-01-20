@@ -6923,7 +6923,8 @@
         "summary": "Create invoice object 🔐",
         "tags": [
           "invoices"
-        ]
+        ],
+        "x-codegen-request-body-name": "createInvoicesModel"
       }
     },
     "/invoices/createfromorder/{orderid}": {
@@ -24124,17 +24125,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Any"
+                "$ref": "#/components/schemas/createSupplierinvoicesModel"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/Any"
+                "$ref": "#/components/schemas/createSupplierinvoicesModel"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Any"
+                "$ref": "#/components/schemas/createSupplierinvoicesModel"
               }
             }
           },

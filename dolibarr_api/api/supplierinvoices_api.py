@@ -20,7 +20,6 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
-from dolibarr_api.models.create_supplierinvoices_model import CreateSupplierinvoicesModel
 from dolibarr_api.models.supplierinvoices_add_payment_model import SupplierinvoicesAddPaymentModel
 from dolibarr_api.models.supplierinvoices_create_line_model import SupplierinvoicesCreateLineModel
 from dolibarr_api.models.supplierinvoices_settodraft_model import SupplierinvoicesSettodraftModel
@@ -49,7 +48,7 @@ class SupplierinvoicesApi:
     @validate_call
     def create_supplierinvoices(
         self,
-        create_supplierinvoices_model: Annotated[Optional[CreateSupplierinvoicesModel], Field(description="request_data   ")] = None,
+        create_supplierinvoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -68,7 +67,7 @@ class SupplierinvoicesApi:
         Note: soc_id = dolibarr_order_id Example: {'ref': 'auto', 'ref_supplier': '7985630', 'socid': 1, 'note': 'Inserted with Python', 'order_supplier': 1, 'date': '2021-07-28'}
 
         :param create_supplierinvoices_model: request_data   
-        :type create_supplierinvoices_model: CreateSupplierinvoicesModel
+        :type create_supplierinvoices_model: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -118,7 +117,7 @@ class SupplierinvoicesApi:
     @validate_call
     def create_supplierinvoices_with_http_info(
         self,
-        create_supplierinvoices_model: Annotated[Optional[CreateSupplierinvoicesModel], Field(description="request_data   ")] = None,
+        create_supplierinvoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -137,7 +136,7 @@ class SupplierinvoicesApi:
         Note: soc_id = dolibarr_order_id Example: {'ref': 'auto', 'ref_supplier': '7985630', 'socid': 1, 'note': 'Inserted with Python', 'order_supplier': 1, 'date': '2021-07-28'}
 
         :param create_supplierinvoices_model: request_data   
-        :type create_supplierinvoices_model: CreateSupplierinvoicesModel
+        :type create_supplierinvoices_model: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -187,7 +186,7 @@ class SupplierinvoicesApi:
     @validate_call
     def create_supplierinvoices_without_preload_content(
         self,
-        create_supplierinvoices_model: Annotated[Optional[CreateSupplierinvoicesModel], Field(description="request_data   ")] = None,
+        create_supplierinvoices_model: Annotated[Optional[Dict[str, Any]], Field(description="request_data   ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -206,7 +205,7 @@ class SupplierinvoicesApi:
         Note: soc_id = dolibarr_order_id Example: {'ref': 'auto', 'ref_supplier': '7985630', 'socid': 1, 'note': 'Inserted with Python', 'order_supplier': 1, 'date': '2021-07-28'}
 
         :param create_supplierinvoices_model: request_data   
-        :type create_supplierinvoices_model: CreateSupplierinvoicesModel
+        :type create_supplierinvoices_model: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

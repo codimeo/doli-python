@@ -32,7 +32,6 @@ Note: soc_id = dolibarr_order_id Example: {'ref': 'auto', 'ref_supplier': '79856
 
 ```python
 import dolibarr_api
-from dolibarr_api.models.create_supplierinvoices_model import CreateSupplierinvoicesModel
 from dolibarr_api.rest import ApiException
 from pprint import pprint
 
@@ -57,7 +56,7 @@ configuration.api_key['api_key'] = os.environ["API_KEY"]
 with dolibarr_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dolibarr_api.SupplierinvoicesApi(api_client)
-    create_supplierinvoices_model = dolibarr_api.CreateSupplierinvoicesModel() # CreateSupplierinvoicesModel | request_data    (optional)
+    create_supplierinvoices_model = None # Dict[str, object] | request_data    (optional)
 
     try:
         # Create supplier invoice object 🔐
@@ -75,7 +74,7 @@ with dolibarr_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_supplierinvoices_model** | [**CreateSupplierinvoicesModel**](CreateSupplierinvoicesModel.md)| request_data    | [optional] 
+ **create_supplierinvoices_model** | [**Dict[str, object]**](object.md)| request_data    | [optional] 
 
 ### Return type
 
